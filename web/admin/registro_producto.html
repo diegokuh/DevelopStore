@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Develop Store: Registro Productos</title>
+    </head>
+    <body>
+        <table border='0' cellpadding='5' cellspacing='0' width='800'> 
+            <tr bgcolor='#3882C7' align='center' valign='center' height='20'> 
+                <td>
+                    <h3><font color="white">Develop Store: Registro Productos</h3>
+                </td> 
+            </tr> 
+            <tr align='right'> 
+                <td>
+                    <table>
+                        <tr>
+                            <td><a href="../login.html">Login</a></td>
+                            <td><a href="../registro_cliente.html">Regístrate</a></td>
+                        </tr>
+                    </table>
+                </td> 
+            </tr> 
+        </table>
+        <b>Usted está aquí:</b> <a href="../index.html">Inicio</a>/<a href="index.html">Admin</a>/Registro Productos
+        <p>Los campos marcados con * son obligatorios:</p>
+        <form method="POST" action="registro_productos.do">
+            <table border="0">
+                <tr>
+                    <td>* Color:</td>
+                    <td>                        
+                        <select name="color">
+                            <option>Selecciona...</option><option value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>* Precio:</td>
+                    <td><input type="text" name="precio"/></td>
+                </tr>
+                <tr>
+                    <td>* Talla:</td>
+                    <td>
+                        <select name="talla">
+                            <option>Selecciona...</option>
+                            <option value="Rosa">Rosa</option>
+                            <option value="Azul">Azul</option>
+                            <option value="Morado">Morado</option>
+                            <option value="Naranja">Naranja</option>
+                            <option value="Negro">Negro</option>
+                            <option value="Blanco">Blanco</option>
+                        </select>                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Descripción:</td>
+                    <td>
+                        <textarea name="descripcion" rows="6" cols="30"></textarea>                         
+                    </td>
+                </tr>
+                <tr>
+                    <td>* Tipo:</td>
+                    <td><select name="tipo">
+                            <option>Selecciona...</option>
+                            <option value="CHICA">CHICA</option>
+                            <option value="MEDIANA">MEDIANA</option>
+                            <option value="GRANDE">GRANDE</option>
+                            <option value="EXTRA">GRANDE</option>
+                        </select>                         
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Registrar" /></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
+

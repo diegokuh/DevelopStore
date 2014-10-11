@@ -9,18 +9,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mx.com.develop.store.model.Color;
 import mx.com.develop.store.model.Producto;
+import mx.com.develop.store.model.Talla;
+import mx.com.develop.store.model.TipoProducto;
 
 /**
  *
  * @author Curso
  */
-@WebServlet(name = "ListaProductos", urlPatterns = {"/ListaProductos"})
+@WebServlet(name = "ListaProductos", urlPatterns = {"/lista_productos.view"})
 public class ListaProductos extends HttpServlet {
 
     /**
@@ -35,6 +39,17 @@ public class ListaProductos extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Producto> productos = new LinkedList<>();
+        
+        productos.add(new Producto(1, Color.ROJO, 50.00, Talla.MEDIANA, "Camisa Polo", TipoProducto.CAMISA));
+        productos.add(new Producto(2, Color.AZUL, 70.00, Talla.GRANDE, "Pantalon mezclilla", TipoProducto.PANTALON));
+        productos.add(new Producto(3, Color.NARANJA, 90.00, Talla.EXTRA_GRANDE, "Blusa de verano", TipoProducto.BLUSA));
+        productos.add(new Producto(4, Color.VERDE, 45.00, Talla.CHICA, "Playhera con estapado", TipoProducto.PLAYERA));
+        productos.add(new Producto(5, Color.NEGRO, 60.00, Talla.MEDIANA, "Camisa de vestir", TipoProducto.CAMISA));
+        
+        request.setAttribute("listaProductos", productos);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("lista_productos.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

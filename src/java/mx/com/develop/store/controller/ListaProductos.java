@@ -46,6 +46,7 @@ public class ListaProductos extends HttpServlet {
         productos.add(new Producto(4, Color.VERDE, 45.00, Talla.CHICA, "Playhera con estapado", TipoProducto.PLAYERA));
         productos.add(new Producto(5, Color.NEGRO, 60.00, Talla.MEDIANA, "Camisa de vestir", TipoProducto.CAMISA));
         
+        request.setAttribute("usuario", "Diego Lira");
         request.setAttribute("listaProductos", productos);
         
         RequestDispatcher rd = request.getRequestDispatcher("lista_productos.jsp");

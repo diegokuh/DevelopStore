@@ -34,7 +34,7 @@
                         <tr>
 
                             <td>Usuario: </td>
-                            <td> <%= request.getParameter("usuario") %> </td>
+                            <td> <%= request.getAttribute("usuario") %> </td>
                         </tr>
                     </table>
                 </td> 
@@ -57,13 +57,14 @@
             </thead>
             <tbody>
                 <%
+                int i=0;
                 for(Producto producto: lista){
                 %>
                 <tr>
-                    <td><%= producto.getId()%></td>
+                    <td><%= ++i %></td>
                     <td><%= producto.getDescripcion()%></td>
-                    <td><%= producto.getTipo()%></td>
-                    <td><%= producto.getColor()%></td>
+                    <td><%= producto.getTipo().getTitulo()%></td>
+                    <td><%= producto.getColor().getTitulo()%></td>
                     <td><%= producto.getTalla()%></td>
                     <td><%= "$"+producto.getPrecio()%></td>
                     <td></td>

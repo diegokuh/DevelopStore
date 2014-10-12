@@ -5,12 +5,6 @@
 package mx.com.develop.store.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -40,6 +34,7 @@ public class RegistroCliente extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("en método doPost(HttpServletRequest req, HttpServletResponse resp)");
         resp.setContentType("text/html");
         
         String nombre = req.getParameter("nombre");
@@ -56,6 +51,8 @@ public class RegistroCliente extends HttpServlet {
         
         RequestDispatcher rd = req.getRequestDispatcher("registro_cliente_success.jsp");
         rd.forward(req, resp);
+        
+        System.out.println("Se ejecutó doPost(HttpServletRequest req, HttpServletResponse resp)");
 
     }
 
@@ -80,7 +77,22 @@ public class RegistroCliente extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("En método service(HttpServletRequest req, HttpServletResponse resp)");
+        
+        String requestURI = req.getRequestURI();
+        StringBuffer requestURL = req.getRequestURL();
+        String servletPath = req.getServletPath();
+                
+        System.out.println("requestURI: "+requestURI);
+        System.out.println("requestURL: "+requestURL);
+        System.out.println("servletPath: "+servletPath);
+        
         super.service(req, resp); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("En método destroy()");
+        super.destroy(); //To change body of generated methods, choose Tools | Templates.
     }
     
     

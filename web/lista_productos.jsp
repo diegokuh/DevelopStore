@@ -7,6 +7,8 @@
 <%@page import="mx.com.develop.store.model.Producto"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
     List<Producto> lista = (List<Producto>)request.getAttribute("listaProductos");
     %>
@@ -34,7 +36,7 @@
                         <tr>
 
                             <td>Usuario: </td>
-                            <td> <%= request.getAttribute("usuario") %> </td>
+                            <td> ${usuario} </td>
                         </tr>
                     </table>
                 </td> 
@@ -56,22 +58,20 @@
                 </tr>
             </thead>
             <tbody>
-                <%
-                int i=0;
-                for(Producto producto: lista){
-                %>
+                <fmt:setLocale value="es_MX" />
+                <c:forEach items="${listaProductos}" var="lista" varStatus="status">
                 <tr>
-                    <td><%= ++i %></td>
-                    <td><%= producto.getDescripcion()%></td>
-                    <td><%= producto.getTipo().getTitulo()%></td>
-                    <td><%= producto.getColor().getTitulo()%></td>
-                    <td><%= producto.getTalla()%></td>
-                    <td><%= "$"+producto.getPrecio()%></td>
+                    <td>${status.count}</td>
+                    <td>${lista.descripcion}</td>
+                    <td>${lista.tipo.titulo}</td>
+                    <td>${lista.color.titulo}</td>
+                    <td>${lista.talla}</td>
+                    <td><fmt:formatNumber type="currency" value="${lista.precio}" /></td>
                     <td></td>
                     <td><img src="imagenes/carrito.png" width="40" height="40" alt="carrito"/>
                     </td>
                 </tr>
-                <%}%>
+                </c:forEach>
             </tbody>
         </table>
     </body>

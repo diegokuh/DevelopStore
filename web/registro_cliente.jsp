@@ -50,9 +50,8 @@ and open the template in the editor.
                     <td><input type="password" name="contrasenia" value="" size="20" /></td>
                 </tr>
                 <tr>
-                    <%int aleatorio = ((int) (Math.random() * 3 + 1));%>
-                    <td><img src="imagenes/<%=aleatorio%>.png" height="56" width="137" alt="captcha" /></td>
-                    <td>Escribe el texto de la imágen:<br /><input type="text" name="captcha" value="" size="20" /></td>
+                    <td><img src="simpleImg"/></td>
+                    <td>Escribe el texto de la imágen:<br /><input type="text" name="answer" /></td>
                 </tr>
             </table>
             <br>

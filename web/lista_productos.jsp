@@ -10,7 +10,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
-    List<Producto> lista = (List<Producto>)request.getAttribute("listaProductos");
+    List<Producto> lista = (List<Producto>)request.getAttribute("productos");
     %>
 <!DOCTYPE html>
 <html>
@@ -59,7 +59,7 @@
             </thead>
             <tbody>
                 <fmt:setLocale value="es_MX" />
-                <c:forEach items="${listaProductos}" var="lista" varStatus="status">
+                <c:forEach items="${productos}" var="lista" varStatus="status">
                 <tr>
                     <td>${status.count}</td>
                     <td>${lista.descripcion}</td>

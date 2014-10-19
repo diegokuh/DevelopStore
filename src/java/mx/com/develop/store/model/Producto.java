@@ -28,6 +28,14 @@ public class Producto {
         this.descripcion = descripcion;
         this.tipo = tipo;
     }
+    
+    public Producto(Color color, double precio, Talla talla, String descripcion, TipoProducto tipo) {
+        this.color = color;
+        this.precio = precio;
+        this.talla = talla;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+    }
 
     public TipoProducto getTipo() {
         return tipo;

@@ -3,29 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package mx.com.develop.store.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mx.com.develop.store.model.Color;
-import mx.com.develop.store.model.Producto;
-import mx.com.develop.store.model.Talla;
-import mx.com.develop.store.model.TipoProducto;
 
 /**
  *
- * @author Curso
+ * @author Cursos Montoya
  */
-@WebServlet(name = "ListaProductos", urlPatterns = {"/lista_productos.view"})
-public class ListaProductos extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/login.do"},
+        initParams = {
+            @WebInitParam(name = "usuario",value = "diegokuh"),
+            @WebInitParam(name = "contrasenia",value = "321")
+        }
+)
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,26 +39,21 @@ public class ListaProductos extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Producto> productos = null;
-//        productos = new LinkedList<>();
-//        
-//        productos.add(new Producto(1, Color.ROJO, 50.00, Talla.MEDIANA, "Camisa Polo", TipoProducto.CAMISA));
-//        productos.add(new Producto(2, Color.AZUL, 70.00, Talla.GRANDE, "Pantalon mezclilla", TipoProducto.PANTALON));
-//        productos.add(new Producto(3, Color.NARANJA, 90.00, Talla.EXTRA_GRANDE, "Blusa de verano", TipoProducto.BLUSA));
-//        productos.add(new Producto(4, Color.VERDE, 45.00, Talla.CHICA, "Playhera con estapado", TipoProducto.PLAYERA));
-//        productos.add(new Producto(5, Color.NEGRO, 60.00, Talla.MEDIANA, "Camisa de vestir", TipoProducto.CAMISA));
+        response.setContentType("text/html;charset=UTF-8");
         
-        productos = (List<Producto>)getServletContext().getAttribute("productos");
-        if(productos==null){
-            RequestDispatcher rd = request.getRequestDispatcher("lista_productos_error.jsp");
-            rd.forward(request, response);
+        ServletConfig sc = getServletConfig();
+        
+        String usuario = sc.getInitParameter("usuario");
+        String contrasenia = sc.getInitParameter("contrasenia");
+        
+        String usrParam = request.getParameter("usuario");
+        String passParam = request.getParameter("contrasenia");
+        
+        if(usrParam.equals(usuario) && passParam.equals(contrasenia)){
+            response.sendRedirect("lista_productos.view");
         }else{
-            request.setAttribute("usuario", "Diego Lira");
-            request.setAttribute("productos", productos);
-
-            RequestDispatcher rd = request.getRequestDispatcher("lista_productos.jsp");
-            rd.forward(request, response);
-        }
+            response.sendRedirect("login_error.jsp");
+        }            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

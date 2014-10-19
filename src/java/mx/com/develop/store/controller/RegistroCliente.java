@@ -5,8 +5,10 @@
 package mx.com.develop.store.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mx.com.develop.store.model.Cliente;
+import nl.captcha.Captcha;
 
 /**
  *
@@ -37,6 +40,11 @@ public class RegistroCliente extends HttpServlet {
         System.out.println("en método doPost(HttpServletRequest req, HttpServletResponse resp)");
         resp.setContentType("text/html");
         
+        ServletContext ctx = getServletContext();
+        //Otros métodos para obtener a ServletContext:
+        //ServletContext ctx = req.getServletContext();
+        //ServletContext ctx = getServletConfig().getServletContext();
+        
         String nombre = req.getParameter("nombre");
         String edad = req.getParameter("edad");
         int intEdad = Integer.parseInt(edad);
@@ -44,15 +52,31 @@ public class RegistroCliente extends HttpServlet {
         String telefono = req.getParameter("telefono");
         String usuario = req.getParameter("usuario");
         String contrasenia = req.getParameter("contrasenia");
+        String answer = req.getParameter("answer");
+        boolean captchaCorrecta = false;
+//        Enumeration<String> captchas = ctx.getInitParameterNames();
+//        while (captchas.hasMoreElements()) {
+//            if(ctx.getInitParameter(captchas.nextElement()).equals(captcha)){
+//                captchaCorrecta = true;
+//                break;
+//            }
+//        }
         
-        Cliente cliente = new Cliente(nombre, intEdad, direccion, telefono, usuario, contrasenia);
-        
-        req.setAttribute("cliente", cliente);
-        
-        RequestDispatcher rd = req.getRequestDispatcher("registro_cliente_success.jsp");
-        rd.forward(req, resp);
-        
-        System.out.println("Se ejecutó doPost(HttpServletRequest req, HttpServletResponse resp)");
+        Captcha captcha = (Captcha)req.getSession().getAttribute(Captcha.NAME);
+        req.setCharacterEncoding("UTF-8");
+        captchaCorrecta = captcha.isCorrect(answer);
+        if(captchaCorrecta){
+            Cliente cliente = new Cliente(nombre, intEdad, direccion, telefono, usuario, contrasenia);
+
+            req.setAttribute("cliente", cliente);
+
+            RequestDispatcher rd = req.getRequestDispatcher("registro_cliente_success.jsp");
+            rd.forward(req, resp);
+
+            System.out.println("Se ejecutó doPost(HttpServletRequest req, HttpServletResponse resp)");
+        }else{
+            resp.sendRedirect("captcha_error.jsp");
+        }
 
     }
 

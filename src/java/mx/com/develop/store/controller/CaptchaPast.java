@@ -3,29 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package mx.com.develop.store.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mx.com.develop.store.model.Color;
-import mx.com.develop.store.model.Producto;
-import mx.com.develop.store.model.Talla;
-import mx.com.develop.store.model.TipoProducto;
 
 /**
  *
- * @author Curso
+ * @author Cursos Montoya
  */
-@WebServlet(name = "ListaProductos", urlPatterns = {"/lista_productos.view"})
-public class ListaProductos extends HttpServlet {
+@WebServlet(name = "CaptchaPast", urlPatterns = {"/captcha_past.img"})
+public class CaptchaPast extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,25 +35,19 @@ public class ListaProductos extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Producto> productos = null;
-//        productos = new LinkedList<>();
-//        
-//        productos.add(new Producto(1, Color.ROJO, 50.00, Talla.MEDIANA, "Camisa Polo", TipoProducto.CAMISA));
-//        productos.add(new Producto(2, Color.AZUL, 70.00, Talla.GRANDE, "Pantalon mezclilla", TipoProducto.PANTALON));
-//        productos.add(new Producto(3, Color.NARANJA, 90.00, Talla.EXTRA_GRANDE, "Blusa de verano", TipoProducto.BLUSA));
-//        productos.add(new Producto(4, Color.VERDE, 45.00, Talla.CHICA, "Playhera con estapado", TipoProducto.PLAYERA));
-//        productos.add(new Producto(5, Color.NEGRO, 60.00, Talla.MEDIANA, "Camisa de vestir", TipoProducto.CAMISA));
+        response.setContentType("image/png");
+        ServletContext ctx = getServletContext();
+        int aleatorio = ((int)(Math.random()*3+1));
+        InputStream is = ctx.getResourceAsStream("/imagenes/"+aleatorio+".png");
         
-        productos = (List<Producto>)getServletContext().getAttribute("productos");
-        if(productos==null){
-            RequestDispatcher rd = request.getRequestDispatcher("lista_productos_error.jsp");
-            rd.forward(request, response);
-        }else{
-            request.setAttribute("usuario", "Diego Lira");
-            request.setAttribute("productos", productos);
-
-            RequestDispatcher rd = request.getRequestDispatcher("lista_productos.jsp");
-            rd.forward(request, response);
+        try (OutputStream os = response.getOutputStream()){
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while ((read = is.read(bytes)) != -1) {                
+                os.write(bytes);
+            }            
+        } catch (IOException e) {
+            System.err.println("Error Captcha.");
         }
     }
 

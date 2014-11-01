@@ -16,8 +16,19 @@ public class Producto {
     private Talla talla;
     private String descripcion;
     private TipoProducto tipo;
+    private int disponibles;
 
     public Producto() {
+    }
+    
+    public Producto(Integer id, Color color, double precio, Talla talla, String descripcion, TipoProducto tipo, int disponibles) {
+        this.id = id;
+        this.color = color;
+        this.precio = precio;
+        this.talla = talla;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.disponibles = disponibles;
     }
 
     public Producto(Integer id, Color color, double precio, Talla talla, String descripcion, TipoProducto tipo) {
@@ -83,5 +94,13 @@ public class Producto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    
+    public int getDisponibles() {
+        return disponibles;
+    }
+
+    public void setDisponibles(int disponibles) {
+        this.disponibles = disponibles;
     }
 }

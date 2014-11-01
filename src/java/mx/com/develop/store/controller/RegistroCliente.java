@@ -69,7 +69,7 @@ public class RegistroCliente extends HttpServlet {
             Cliente cliente = new Cliente(nombre, intEdad, direccion, telefono, usuario, contrasenia);
 
             req.setAttribute("cliente", cliente);
-
+            
             RequestDispatcher rd = req.getRequestDispatcher("registro_cliente_success.jsp");
             rd.forward(req, resp);
 

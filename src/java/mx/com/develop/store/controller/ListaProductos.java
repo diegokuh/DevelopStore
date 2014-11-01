@@ -53,8 +53,6 @@ public class ListaProductos extends HttpServlet {
             rd.forward(request, response);
         }else{
             request.setAttribute("usuario", "Diego Lira");
-            request.setAttribute("productos", productos);
-
             RequestDispatcher rd = request.getRequestDispatcher("lista_productos.jsp");
             rd.forward(request, response);
         }

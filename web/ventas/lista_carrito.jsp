@@ -4,6 +4,7 @@
     Author     : Humberto
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Map"%>
@@ -35,14 +36,14 @@
                         <tr>
                             <td></td>
                             <td>
-                                Usuario: ${usuario.nombre} <a href="logout.do">Salir</a>
+                                Usuario: ${usuario.nombre} <a href="../logout.do">Salir</a>
                             </td>
                         </tr>
                     </table>
                 </td> 
             </tr> 
         </table>
-        <b>Usted está aquí:</b> <a href="../index.html">Inicio</a>/Carrito de compras
+        <b>Usted está aquí:</b> <a href="../index.jsp">Inicio</a>/Carrito de compras
         de Productos        
         <h2>Lista de Productos:</h2>
         <table border="1" width="800" id="table">
@@ -60,34 +61,23 @@
                 </tr>
             </thead>
             <tbody>
-                <%
-                    int i = 0;
-                    Venta venta = (Venta) session.getAttribute("venta");
-                    if (venta != null) {
-                        Map<Producto, Integer> productosVenta = venta.getProductos();
-                        Collection<Producto> productos = productosVenta.keySet();
-                        for (Producto producto : productos) {
-                            i++;
-                %>
+                <c:forEach items="${venta.productos}" var="productoVenta" varStatus="index">
                 <tr id="td">
-                    <td><%= i%></td>
-                    <td><%= producto.getDescripcion()%></td>
-                    <td><%= producto.getTipo().getTitulo()%></td>
-                    <td><%= producto.getColor().getTitulo()%></td>
-                    <td><%= producto.getTalla()%></td>
-                    <td>$<%= producto.getPrecio()%></td>
-                    <td><%= productosVenta.get(producto)%></td>
+                    <td>${index.count}</td>
+                    <td>${productoVenta.key.descripcion}</td>
+                    <td>${productoVenta.key.tipo.titulo}</td>
+                    <td>${productoVenta.key.color.titulo}</td>
+                    <td>${productoVenta.key.talla}</td>
+                    <td>$${productoVenta.key.precio}</td>
+                    <td>${productoVenta.value}</td>
                     <td>     
                         <a href="">Modificar</a>
                     </td>
                 </tr>
-                <%
-                        }
-                    }
-                %>
+                </c:forEach>
             </tbody>
         </table>
         <p> <a href="../lista_productos.view">Seguir comprando</a></p>
-        <p> <a href="">Completar compra.</a></p>
+        <p> <a href="completar_compra.do">Completar compra.</a></p>
     </body>
 </html>

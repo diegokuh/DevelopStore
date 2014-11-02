@@ -32,7 +32,7 @@ public class StoreContextListener implements ServletContextListener {
         context.setAttribute("productos", productos);
         List<Cliente> clientes= new LinkedList<>();
         
-        clientes.add(new Cliente("rodo", 26, "dfg", "55", "rodo", "123"));
+        clientes.add(new Cliente("Diego Lira", 28, "México,D.F.", "5522683527", "diegokuh", "diego123"));
         context.setAttribute("clientes", clientes);
         
         //Creamos un sevlet dinamico

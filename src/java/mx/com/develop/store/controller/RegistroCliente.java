@@ -23,7 +23,7 @@ import nl.captcha.Captcha;
  *
  * @author Humberto
  */
-@WebServlet(name = "RegistroCliente", urlPatterns = {"/Registro.do"})
+//@WebServlet(name = "RegistroCliente", urlPatterns = {"/Registro.do"})
 public class RegistroCliente extends HttpServlet {
     
     public RegistroCliente(){

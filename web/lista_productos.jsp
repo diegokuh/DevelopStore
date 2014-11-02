@@ -21,25 +21,11 @@
         </style>
     </head>
     <body>
-        <table border='0' cellpadding='5' cellspacing='0' width='800'> 
-            <tr bgcolor='#3882C7' align='center' valign='center' height='20'> 
-                <td>
-                    <h3><font color='white'>Develop Store: Listado de Productos</h3>
-                </td> 
-            </tr> 
-            <tr align='right'> 
-                <td>
-                    <table>
-                        <tr>
-
-                            <td>Usuario: </td>
-                            <td> ${usuario} </td>
-                        </tr>
-                    </table>
-                </td> 
-            </tr> 
-        </table>
-        <b>Usted está aquí:</b> <a href="index.html">Inicio</a>/Listado de Productos        
+        <c:import url="header.jsp">
+            <c:param name="titulo" value="Listado de Productos" />
+        </c:import>
+        <%--<c:redirect url="login.html" />--%>
+        <b>Usted está aquí:</b> <a href="index.jsp">Inicio</a>/Listado de Productos        
         <h2>Lista de Productos:</h2>
         <table border='1' width='800' id='table'>
             <thead>
@@ -56,7 +42,7 @@
             </thead>
             <tbody>
                 <fmt:setLocale value="es_MX" />
-                <c:forEach items="${applicationScope.productos}" var="lista" varStatus="status">
+                <c:forEach items="${productos}" var="lista" varStatus="status" >
                 <tr>
                     <td>${status.count}</td>
                     <td>${lista.descripcion}</td>
@@ -64,8 +50,9 @@
                     <td>${lista.color.titulo}</td>
                     <td>${lista.talla}</td>
                     <td><fmt:formatNumber type="currency" value="${lista.precio}" /></td>
-                    <td></td>
-                    <td><img src="imagenes/carrito.png" width="40" height="40" alt="carrito"/>
+                    <td>${lista.disponibles}</td>
+                    <td>
+                        <a href="ventas/detalles_producto.view?id=${lista.id}"><img src="imagenes/carrito.png" width="40" height="40" alt="carrito"/></a>
                     </td>
                 </tr>
                 </c:forEach>

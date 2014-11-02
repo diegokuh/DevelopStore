@@ -34,7 +34,7 @@
                 </td> 
             </tr> 
         </table>
-        <b>Usted está aquí:</b> <a href="../index.html">Inicio</a>/<a href="index.html">Admin</a>/Registro Productos
+        <b>Usted está aquí:</b> <a href="../index.jsp">Inicio</a>/<a href="index.jsp">Admin</a>/Registro Productos
         <p>Los campos marcados con * son obligatorios:</p>
         <form method="POST" action="registro_producto.do">
             <table border="0">

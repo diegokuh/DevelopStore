@@ -18,7 +18,7 @@ and open the template in the editor.
             </tr> 
             <tr align='right'> 
                 <td>
-                    <b>Usted está aquí:</b> <a href="index.html">Inicio</a>/Registro 
+                    <b>Usted está aquí:</b> <a href="index.jsp">Inicio</a>/Registro 
                 </td> 
             </tr> 
         </table>

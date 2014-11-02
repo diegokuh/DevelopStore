@@ -4,6 +4,7 @@
     Author     : Humberto
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="mx.com.develop.store.model.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,14 +33,16 @@
                 </td> 
             </tr> 
         </table>
-        <b>Usted está aquí:</b> <a href="../index.html">Inicio</a>/<a href="../lista_productos.view">Listado de Productos</a>/Detalles del Producto</a><br/>
+        <b>Usted está aquí:</b> <a href="../index.jsp">Inicio</a>/<a href="../lista_productos.view">Listado de Productos</a>/Detalles del Producto</a><br/>
     <b>Color:</b> ${producto.color.titulo}</br>
     <b>Precio:</b> ${producto.precio}</br>
     <b>Talla:</b> ${ producto.talla}</br>
     <b>Descripcion:</b> ${producto.descripcion}</br>
     <b>Tipo:</b> ${producto.tipo.titulo}</br>
-
-    <form action="agregar_carrito.do?id=${producto.id}" method="POST">
+    <c:url value="agregar_carrito.do" var="accion">
+        <c:param name="id" value="${producto.id}" />
+    </c:url>
+    <form action="${accion}" method="POST">
         <table border="0">        
             <tbody>
                 <tr>

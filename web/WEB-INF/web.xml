@@ -15,7 +15,6 @@
         <param-name>captcha3</param-name>
         <param-value>unnedou</param-value>
     </context-param>
-    
     <servlet>
         <servlet-name>SimpleCaptcha</servlet-name>
         <servlet-class>nl.captcha.servlet.SimpleCaptchaServlet</servlet-class>
@@ -30,15 +29,21 @@
             <param-value>50</param-value>
         </init-param>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>SimpleCaptcha</servlet-name>
         <url-pattern>/simpleImg</url-pattern>
     </servlet-mapping>
-    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/error/exception.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
 </web-app>

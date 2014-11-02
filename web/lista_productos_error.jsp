@@ -28,6 +28,6 @@
             </tr> 
         </table>
         <font color="red"><p>La lista de productos esta vacía.<p></font>
-            <a href="index.html">Inicio</a>
+            <a href="index.jsp">Inicio</a>
     </body>
 </html>

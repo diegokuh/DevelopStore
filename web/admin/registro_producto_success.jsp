@@ -30,7 +30,7 @@
                 </td> 
             </tr> 
         </table>
-        <b>Usted está aquí:</b> <a href="../index.html">Inicio</a>/<a href="index.jsp">Admin</a>/<a href="registro_producto.jsp">Registro Productos</a>/Correcto
+        <b>Usted está aquí:</b> <a href="../index.jsp">Inicio</a>/<a href="index.jsp">Admin</a>/<a href="registro_producto.jsp">Registro Productos</a>/Correcto
         <h3>Tu producto ha sido registrado satisfactoriamente:</h3>
         <b>Color:</b> ${producto.color.titulo}</br>
         <b>Precio:</b> ${producto.precio}</br>

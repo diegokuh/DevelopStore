@@ -30,7 +30,7 @@
                 </td> 
             </tr> 
         </table>
-        <b>Usted está aquí:</b> <a href="../index.html">Inicio</a>/<a href="index.jsp">Admin</a>/<a href="registro_producto.jsp">Registro Productos</a>/Error
+        <b>Usted está aquí:</b> <a href="../index.jsp">Inicio</a>/<a href="index.jsp">Admin</a>/<a href="registro_producto.jsp">Registro Productos</a>/Error
         <h3>Corrige los siguientes errores:</h3>
         <% List<String> listaErrores = (List<String>) request.getAttribute("listaErrores");%>
         <font color="red">

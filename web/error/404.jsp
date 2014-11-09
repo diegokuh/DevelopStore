@@ -28,6 +28,6 @@
             </tr> 
         </table>
         <img src="<c:url value="/error/error_404.png"/>" width="579" height="309" alt="error_interno"/>
-        <p>Error de servidor</p>
+        <p>Error de servidor <%=exception%></p>
     </body>
 </html>

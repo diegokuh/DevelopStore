@@ -5,14 +5,14 @@
 package mx.com.develop.store.controller;
 
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +41,10 @@ public class RegistroCliente extends HttpServlet {
         resp.setContentType("text/html");
         
         ServletContext ctx = getServletContext();
+        List<Cliente> clientes = (LinkedList<Cliente>)ctx.getAttribute("clientes");
+        if(clientes == null){
+            clientes = new LinkedList<Cliente>();
+        }
         //Otros métodos para obtener a ServletContext:
         //ServletContext ctx = req.getServletContext();
         //ServletContext ctx = getServletConfig().getServletContext();
@@ -69,6 +73,8 @@ public class RegistroCliente extends HttpServlet {
             Cliente cliente = new Cliente(nombre, intEdad, direccion, telefono, usuario, contrasenia);
 
             req.setAttribute("cliente", cliente);
+            clientes.add(cliente);
+            ctx.setAttribute("clientes", clientes);
             
             RequestDispatcher rd = req.getRequestDispatcher("registro_cliente_success.jsp");
             rd.forward(req, resp);

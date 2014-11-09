@@ -9,6 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="/store.develop.com.mx" prefix="d" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,9 +43,11 @@
             </thead>
             <tbody>
                 <fmt:setLocale value="es_MX" />
-                <c:forEach items="${productos}" var="lista" varStatus="status" >
+                <%--<c:forEach items="${productos}" var="lista" varStatus="status" >--%>
+                <d:myForEach lista="${productos}" varName="lista" indice="index">
                 <tr>
-                    <td>${status.count}</td>
+                    <%--<td>${status.count}</td>--%>
+                    <td>${index}</td>
                     <td>${lista.descripcion}</td>
                     <td>${lista.tipo.titulo}</td>
                     <td>${lista.color.titulo}</td>
@@ -55,7 +58,8 @@
                         <a href="ventas/detalles_producto.view?id=${lista.id}"><img src="imagenes/carrito.png" width="40" height="40" alt="carrito"/></a>
                     </td>
                 </tr>
-                </c:forEach>
+                </d:myForEach>
+                <%--</c:forEach>--%>
             </tbody>
         </table>
     </body>

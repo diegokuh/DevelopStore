@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="/store.develop.com.mx" prefix="d" %>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Map"%>
 <%@page import="mx.com.develop.store.model.Producto"%>
@@ -63,7 +64,7 @@
             <tbody>
                 <%
                     int i = 0;
-                    Venta venta = (Venta) request.getAttribute("venta");
+                    Venta venta = (Venta) pageContext.findAttribute("venta");
                     if (venta != null) {
                         Map<Producto, Integer> productosVenta = venta.getProductos();
                         Collection<Producto> productos = productosVenta.keySet();
@@ -92,7 +93,7 @@
                     <td></td>
                     <td></td>
                     <td><b>Subtotal:</b></td>
-                    <td>$${subtotal}</td>
+                    <td><d:moneda precio="${subtotal}" /></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -101,7 +102,7 @@
                     <td></td>
                     <td></td>
                     <td><b>I.V.A.:</b></td>
-                    <td>$${iva}</td>
+                    <td><d:moneda precio="${iva}" /></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -110,12 +111,12 @@
                     <td></td>
                     <td></td>
                     <td><b>Total:</b></td>
-                    <td>$${total}</td>
+                    <td><d:moneda precio="${total}" /></td>
                 </tr>
             </tbody>
         </table>
-        ${cliente.nombres}
-        <c:remove var="iva" />
+        <%--${cliente.nombres}--%>
+        <%--<c:remove var="iva" />--%>
         <%--<c:catch var="errorFactura">--%>
         <c:set target="${factura}" property="subtotal" value="${subtotal}" />
         <c:set target="${factura}" property="iva" value="${iva}" />
@@ -136,9 +137,14 @@
         </ul>
         --%>
         <ul>
-            <c:forTokens items="${cupones}" delims="," var="cup">
+            <%--<c:forTokens items="${cupones}" delims="," var="cup">--%>
+            <d:myForTokens arreglo="${cupones}" delimitador="," varName="cup">
                 <li>${cup}</li>
-            </c:forTokens>
+            </d:myForTokens>
+            <%--</c:forTokens>--%>
+        </ul>
+        <ul>
+            <d:cupones cupon_uno="sdajhk56456" cupon_dos="sdf78996896" cupon_tres="654sdfgsd" cupon_cuatro="56sd456sdaf" cupon_cinco="56sdf46" />
         </ul>
         <p> <a href="../lista_productos.view">Seguir comprando</a></p>
     </body>

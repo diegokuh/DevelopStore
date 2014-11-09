@@ -23,7 +23,7 @@ and open the template in the editor.
             </tr> 
         </table>
         
-        <form action="Registro.do" method="POST">
+        <form action="registro.do" method="POST">
             <table border="0">
                 <tr>
                     <td>Nombre: </td>

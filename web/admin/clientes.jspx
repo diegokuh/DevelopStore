@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : clientes
+    Created on : Nov 8, 2014, 4:20:59 PM
+    Author     : Curso
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+
+    <!-- any content can be specified here, e.g.: -->
+    <jsp:element name="clientes">
+        <jsp:body>
+            <c:forEach items="${clientes}" var="cliente" varStatus="indice">
+                <jsp:element name="cliente">
+                    <jsp:attribute name="nombre">${cliente.nombre}</jsp:attribute>
+                    <jsp:body>
+                        <jsp:element name="edad">
+                            <jsp:body>
+                                ${cliente.edad}
+                            </jsp:body>
+                        </jsp:element>
+                        <jsp:element name="direccion">
+                            <jsp:body>
+                                ${cliente.direccion}
+                            </jsp:body>
+                        </jsp:element>
+                        <jsp:element name="telefono">
+                            <jsp:body>
+                                ${cliente.telefono}
+                            </jsp:body>
+                        </jsp:element>
+                    </jsp:body>
+                </jsp:element>
+            </c:forEach>
+        </jsp:body>
+    </jsp:element>
+
+</jsp:root>

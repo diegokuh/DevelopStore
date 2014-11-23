@@ -4,25 +4,36 @@
  */
 package mx.com.develop.store.model;
 
-/**
- *
- * @author Humberto
- */
-public class Producto {
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Producto implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Enumerated(EnumType.STRING)
     private Color color;
+    @Column( precision = 2 , scale = 8, nullable = false  )
     private double precio;
+    @Enumerated(EnumType.STRING)
     private Talla talla;
+    @Column
     private String descripcion;
+    @Enumerated(EnumType.STRING)
     private TipoProducto tipo;
+    @Column
     private int disponibles;
-
-    public Producto() {
-    }
     
-    public Producto(Integer id, Color color, double precio, Talla talla, String descripcion, TipoProducto tipo, int disponibles) {
-        this.id = id;
+    public Producto(){}
+
+    public Producto(Color color, double precio, Talla talla, String descripcion, TipoProducto tipo, int disponibles) {
         this.color = color;
         this.precio = precio;
         this.talla = talla;
@@ -30,16 +41,17 @@ public class Producto {
         this.tipo = tipo;
         this.disponibles = disponibles;
     }
-
-    public Producto(Integer id, Color color, double precio, Talla talla, String descripcion, TipoProducto tipo) {
+    
+    public Producto(Integer id, Color color, double precio, Talla talla, String descripcion, TipoProducto tipo,int disponibles) {
         this.id = id;
         this.color = color;
         this.precio = precio;
         this.talla = talla;
         this.descripcion = descripcion;
         this.tipo = tipo;
-    }
-    
+        this.disponibles = disponibles;
+    }   
+
     public Producto(Color color, double precio, Talla talla, String descripcion, TipoProducto tipo) {
         this.color = color;
         this.precio = precio;
@@ -48,6 +60,15 @@ public class Producto {
         this.tipo = tipo;
     }
 
+    public int getDisponibles() {
+        return disponibles;
+    }
+
+    public void setDisponibles(int disponibles) {
+        this.disponibles = disponibles;
+    }
+    
+    
     public TipoProducto getTipo() {
         return tipo;
     }
@@ -79,7 +100,7 @@ public class Producto {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-
+    
     public Color getColor() {
         return color;
     }
@@ -95,12 +116,29 @@ public class Producto {
     public void setId(Integer id) {
         this.id = id;
     }
-    
-    public int getDisponibles() {
-        return disponibles;
+
+   @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
-    public void setDisponibles(int disponibles) {
-        this.disponibles = disponibles;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Producto)) {
+            return false;
+        }
+        Producto other = (Producto) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entity.Producto[id=" + id + "]";
     }
 }

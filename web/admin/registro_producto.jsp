@@ -91,6 +91,16 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>* Disponibles:</td>
+                    <td><input type="text" name="disponibles"/></td>
+                </tr>
+                <tr>
+                    <td>Imagen:</td>
+                    <td>
+                        <input type="file" name="imagen" value="" />  
+                    </td>
+                </tr>
+                <tr>
                     <td></td>
                     <td><input type="submit" value="Registrar" /></td>
                 </tr>

@@ -20,6 +20,26 @@
                 border-collapse: collapse; 
             }
         </style>
+        <script>
+            var messagesWaiting = false;
+            var i = 10;
+            function getMessages() {
+                if (!messagesWaiting) {
+                    messagesWaiting = true;
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function () {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            messagesWaiting = false;
+                            var contentElement = document.getElementById("content");
+                            contentElement.innerHTML = xmlhttp.responseText;
+                        }
+                    }
+                    xmlhttp.open("GET", "result.jsp", true);
+                    xmlhttp.send();
+                }
+            }
+            setInterval(getMessages, 1000);
+        </script>
     </head>
     <body>
         <c:import url="header.jsp">
@@ -47,7 +67,7 @@
                 <d:myForEach lista="${productos}" varName="lista" indice="index">
                 <tr>
                     <%--<td>${status.count}</td>--%>
-                    <td>${index}</td>
+                    <td>${lista.id}</td>
                     <td>${lista.descripcion}</td>
                     <td>${lista.tipo.titulo}</td>
                     <td>${lista.color.titulo}</td>
@@ -62,5 +82,8 @@
                 <%--</c:forEach>--%>
             </tbody>
         </table>
+        <div id="content">
+            <%--${sessionScope.proceso}--%>
+        </div>
     </body>
 </html>

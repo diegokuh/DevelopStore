@@ -6,6 +6,8 @@ package mx.com.develop.store.controller;
 
 import java.io.IOException;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,8 @@ import mx.com.develop.store.model.Producto;
  */
 @WebServlet(name = "ProductoDetalles", urlPatterns = {"/ventas/detalles_producto.view"})
 public class DetallesProducto extends HttpServlet {
+    @PersistenceContext
+    private EntityManager em;
 
     /**
      * Processes requests for both HTTP
@@ -37,25 +41,18 @@ public class DetallesProducto extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             if (session.getAttribute("cliente") != null) {
-                ServletContext context = getServletContext();
-                List<Producto> productos = (List<Producto>) getServletContext().getAttribute("productos");
                 Integer idProducto = Integer.parseInt(request.getParameter("id"));
-                boolean encontrado = false;
+                //boolean encontrado = false;
+                
+                
+                Producto producto = (Producto)em.createQuery("Select p from Producto p where p.id = :id")
+                        .setParameter("id", idProducto).getSingleResult();
 
-                if (productos != null) {
-                    for (Producto producto : productos) {
-                        if (idProducto.equals(producto.getId())) {
-                            request.setAttribute("producto", producto);
-                            encontrado = true;
-                        }
-                    }
-                    if (encontrado) {
-                        request.getRequestDispatcher("detalles_producto.jsp").forward(request, response);
-                    } else {
-                        response.sendRedirect("detalles_producto_error.jsp");
-                    }
+                if (producto != null) {
+                    request.setAttribute("producto", producto);
+                    request.getRequestDispatcher("detalles_producto.jsp").forward(request, response);
                 } else {
-                    response.sendRedirect("lista_productos_error.jsp");
+                    response.sendRedirect("detalles_producto_error.jsp");
                 }
             } else {
                 response.sendRedirect("detalles_producto_error.jsp");

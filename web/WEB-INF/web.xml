@@ -15,6 +15,10 @@
         <param-name>captcha3</param-name>
         <param-value>unnedou</param-value>
     </context-param>
+    <listener>
+        <description>HttpSessionAttributeListener</description>
+        <listener-class>mx.com.develop.store.listener.StoreHttpSessionAttributeListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>SimpleCaptcha</servlet-name>
         <servlet-class>nl.captcha.servlet.SimpleCaptchaServlet</servlet-class>

@@ -1,3 +1,4 @@
+<%@page import="mx.com.develop.store.model.Cliente"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -32,9 +33,17 @@ and open the template in the editor.
         <ul>
             <li><a href="lista_productos.view">Ver listado de Productos.</a></li>
         </ul>
-        <%!
-            int i = 0;
-        %>
-        No. de visitas: <%= i++ %>
+        <%! int i = 0; %>
+        <%! public void incrementar(){
+                i++;
+            } %>
+            <% incrementar(); %>
+
+        <!-- No se pueden crear un constructor en esta parte y es un error de traduccion  %-->
+        No. de visita :<%= i %>
+        <%-- -@include  file="fecha.jsp" --%>
+        <jsp:include page="fecha.jsp" flush="false" /> 
+           <%--<c:import url="fecha.jsp" /> --%>
+           <b>No. de Clientes Activos:</b><%=Cliente.CLIENTES %>
     </body>
 </html>

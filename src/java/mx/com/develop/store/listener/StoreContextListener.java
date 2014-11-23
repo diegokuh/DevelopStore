@@ -1,8 +1,11 @@
 
 package mx.com.develop.store.listener;
 
+import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -44,6 +47,10 @@ public class StoreContextListener implements ServletContextListener {
         for (String mapping : mappings) {
             System.out.println("Mapping" + mapping);            
         }
+        
+        FilterRegistration.Dynamic filter  = context.addFilter("VentasFilter", "mx.com.develop.store.filter.VentasFilter");
+        EnumSet<DispatcherType> dispatcher = EnumSet.of(DispatcherType.FORWARD,DispatcherType.REQUEST);
+        filter.addMappingForUrlPatterns(dispatcher , true, "/ventas/*");
     }
 
     @Override

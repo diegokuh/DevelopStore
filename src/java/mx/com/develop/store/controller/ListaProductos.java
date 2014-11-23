@@ -9,12 +9,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.AsyncContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mx.com.develop.store.listener.StoreAsyncListener;
 import mx.com.develop.store.model.Color;
 import mx.com.develop.store.model.Producto;
 import mx.com.develop.store.model.Talla;
@@ -24,9 +30,13 @@ import mx.com.develop.store.model.TipoProducto;
  *
  * @author Curso
  */
-@WebServlet(name = "ListaProductos", urlPatterns = {"/lista_productos.view"})
+@WebServlet(name = "ListaProductos", urlPatterns = {"/lista_productos.view"},asyncSupported = true)
 public class ListaProductos extends HttpServlet {
-
+    
+    private static Logger log = Logger.getLogger(ListaProductos.class.getName());
+    
+    @PersistenceContext
+    private EntityManager em;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,14 +57,42 @@ public class ListaProductos extends HttpServlet {
 //        productos.add(new Producto(4, Color.VERDE, 45.00, Talla.CHICA, "Playhera con estapado", TipoProducto.PLAYERA));
 //        productos.add(new Producto(5, Color.NEGRO, 60.00, Talla.MEDIANA, "Camisa de vestir", TipoProducto.CAMISA));
         
-        productos = (List<Producto>)getServletContext().getAttribute("productos");
+        /**
+         * productos = (List<Producto>)getServletContext().getAttribute("productos");
+         * */
+        productos = (List<Producto>) em.createQuery("select p from Producto p").getResultList();
         if(productos==null){
             RequestDispatcher rd = request.getRequestDispatcher("lista_productos_error.jsp");
             rd.forward(request, response);
         }else{
-            request.setAttribute("usuario", "Diego Lira");
+            final AsyncContext ac = request.startAsync();
+            ac.addListener(new StoreAsyncListener());
+            ac.start(new Runnable() {
+
+                @Override
+                public void run() {
+                    for (int i = 0; i < 10; i++) {
+                        log.log(Level.INFO,"Hilo ejecutando tarea asíncrona #"+i);
+                        try {
+                            Thread.currentThread().sleep(1000);
+                            ((HttpServletRequest)ac.getRequest())
+                                    .getSession().setAttribute("process", (i+1)*10);
+//                            if(i==8){
+//                                ac.dispatch("proceso_success.jsp");
+//                            }
+                        } catch (InterruptedException ex) {
+                            log.log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    ac.complete();
+                }
+            });
+            //request.setAttribute("usuario", "Diego Lira");
+            request.setAttribute("productos", productos);
+            
             RequestDispatcher rd = request.getRequestDispatcher("lista_productos.jsp");
             rd.forward(request, response);
+            response.flushBuffer();
         }
     }
 

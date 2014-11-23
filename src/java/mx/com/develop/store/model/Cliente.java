@@ -5,17 +5,22 @@
  */
 package mx.com.develop.store.model;
 
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+
 /**
  *
  * @author Curso
  */
-public class Cliente {
+public class Cliente implements HttpSessionBindingListener{
     private String nombre;
     private int edad;
     private String direccion;
     private String telefono;
     private String usuario;
     private String contrasenia;
+    
+    public static int CLIENTES = 0;
 
     public Cliente() {
     }
@@ -28,38 +33,13 @@ public class Cliente {
         this.usuario = usuario;
         this.contrasenia = contrasenia;
     }
-    
-    
-    public String getNombre() {
-        return nombre;
+
+    public String getContrasenia() {
+        return contrasenia;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     public String getUsuario() {
@@ -70,12 +50,46 @@ public class Cliente {
         this.usuario = usuario;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public void valueBound(HttpSessionBindingEvent event) {
+        Cliente.CLIENTES++;
+    }
+
+    @Override
+    public void valueUnbound(HttpSessionBindingEvent event) {
+        Cliente.CLIENTES--;
     }
 
     @Override

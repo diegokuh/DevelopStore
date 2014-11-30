@@ -50,4 +50,21 @@
         <error-code>404</error-code>
         <location>/error/404.jsp</location>
     </error-page>
+    <!--    <security-constraint>
+        <display-name>Constraint1</display-name>
+        <web-resource-collection>
+            <web-resource-name>admin</web-resource-name>
+            <description>Se protege el directorio admin</description>
+            <url-pattern>/admin/*</url-pattern>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Administrador</role-name>
+        </auth-constraint>
+    </security-constraint>-->
+    <security-role>
+        <description>Rol para el registro de productos</description>
+        <role-name>Administrator</role-name>
+    </security-role>
 </web-app>

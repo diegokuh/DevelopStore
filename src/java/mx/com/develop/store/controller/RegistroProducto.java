@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
@@ -28,6 +29,10 @@ import mx.com.develop.store.model.Producto;
 import mx.com.develop.store.model.Talla;
 import mx.com.develop.store.model.TipoProducto;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.HttpMethodConstraint;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.http.Part;
 import javax.transaction.NotSupportedException;
 import javax.transaction.SystemException;
@@ -39,6 +44,14 @@ import javax.transaction.UserTransaction;
  * @author Humberto BanueloS
  */
 @WebServlet(name = "RegistroProducto", urlPatterns = { "/admin/registro_producto.do" })
+@MultipartConfig
+@DeclareRoles("Administrator")
+@ServletSecurity(httpMethodConstraints = {
+        @HttpMethodConstraint(value="POST",
+                rolesAllowed="Administrator",
+                emptyRoleSemantic = ServletSecurity.EmptyRoleSemantic.PERMIT)
+    }
+)
 public class RegistroProducto extends HttpServlet {
     @PersistenceContext
     private EntityManager em;

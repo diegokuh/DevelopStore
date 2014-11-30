@@ -106,6 +106,7 @@
                 </tr>
             </table>
         </form>
+                            <h2>Hola <%= request.isUserInRole(R) %></h2>
     </body>
 </html>
 
